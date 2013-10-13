@@ -1,0 +1,14 @@
+{
+    "name": "<%= libraryName %>",
+    "version": "0.0.0",
+    "dependencies": {
+        "angular": "~1.0.7"<% if (config.angular.includeModules.resource) { %>,
+        "angular-resource": "~1.0.7"<% } %><% if (config.angular.includeModules.cookies) { %>,
+        "angular-cookies": "~1.0.7"<% } %><% if (config.angular.includeModules.sanitize) { %>,
+        "angular-sanitize": "~1.0.7"<% } %>
+    },
+    "devDependencies": {
+        "angular-mocks": "~1.0.7",
+        "angular-scenario": "~1.0.7"
+    }
+}

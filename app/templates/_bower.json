@@ -1,5 +1,5 @@
 {
-    "name": "<%= libraryName %>",
+    "name": "<%= config.appTitle.slugified %>",
     "version": "0.0.0",
     "dependencies": {
         "angular": "~1.0.7"<% if (config.angular.includeModules.resource) { %>,

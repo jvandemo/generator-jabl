@@ -2,8 +2,8 @@
 var util = require('util')
     , path = require('path')
     , yeoman = require('yeoman-generator')
-    , chalk = require('chalk');
-
+    , fs = require('fs')
+    , art = require('../lib/art');
 
 var JablGenerator = module.exports = function JablGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
@@ -17,20 +17,99 @@ var JablGenerator = module.exports = function JablGenerator(args, options, confi
 
 util.inherits(JablGenerator, yeoman.generators.Base);
 
-JablGenerator.prototype.askFor = function askFor() {
+JablGenerator.prototype.test = function test() {
+
+    return;
+    this.env.run('jabl:a:controller', { 'answers' : {
+        controllerName: "MyFirstCtrl"
+    }});
+};
+
+JablGenerator.prototype.showWelcome = function showWelcome() {
+    console.log(art.welcome);
+};
+
+JablGenerator.prototype.showMenu = function showMenu() {
+
     var cb = this.async();
 
-    var welcome =
-        '\n\n' +
-            '\n         __      ___.   .__' + '               .--------------------.' +
-            '\n        |__|____ \\_ |__ |  |' + '             |   ' + chalk.yellow.bold('Welcome to JABL') + '    |' +
-            '\n        |  \\__  \\ | __ \\|  |' + '              \'--------------------\'' +
-            '\n        |  |/ __ \\| \\_\\ \\  |__' +
-            '\n    /\\__|  (____  /___  /____/' + '     Jade + AngularJS + Bootstrap + LESS' +
-            '\n    \\______|    \\/    \\/    ' +
-            '\n\n'
+    // Show help if config already exists
 
-    console.log(welcome);
+    if (this.generatorName !== 'jabl') return cb();
+
+    if (! fs.existsSync('jabl.json')) return cb();
+
+    /*
+    if (this.options.force) return cb();
+
+    console.log('To re-run the JABL setup wizard: yo jabl --setup' + '\n');
+
+    console.log('JABL AngularJS subgenerators');
+    console.log('Usage: yo jabl:a:<command>' + '\n');
+
+    console.log('  ' + 'controller' + '\t' + 'Create controller');
+    console.log('  ' + 'directive' + '\t' + 'Create directive');
+    console.log('  ' + 'filter' + '\t\t' + 'Create filter');
+    console.log('  ' + 'service' + '\t\t' + 'Create service');
+
+    */
+
+    var prompts = [
+        {
+            type: 'list',
+            name: 'action',
+            message: 'What would you like to do? (Ctrl-C to quit)',
+            choices: function (answers) {
+                return [
+                    new yeoman.inquirer.Separator('\n' + '---- AngularJS ----'),
+                    {
+                        name: 'Create AngularJS controller',
+                        value: 'a:controller'
+                    },
+                    {
+                        name: 'Create AngularJS directive',
+                        value: 'a:directive'
+                    },
+                    {
+                        name: 'Create AngularJS service',
+                        value: 'a:service'
+                    },
+                    {
+                        name: 'Create AngularJS filter',
+                        value: 'a:filter'
+                    },
+                    new yeoman.inquirer.Separator('\n' + '---- JABL ----'),
+                    {
+                        name: 'Re-run JABL setup wizard',
+                        value: 'setup'
+                    },
+                    {
+                        name: 'Exit',
+                        value: 'exit'
+                    }
+                ];
+            }
+        }
+    ];
+
+    this.prompt(prompts, function (props) {
+
+        var action = props.action;
+
+        if (action === 'setup') return cb();
+
+        if (action === 'exit') return console.log('Have a great day!');
+
+        if (action === 'a:controller') return this.env.run('jabl:a:controller');
+
+    }.bind(this));
+
+
+
+};
+
+JablGenerator.prototype.askFor = function askFor() {
+    var cb = this.async();
 
     var prompts = [
         {
@@ -70,7 +149,6 @@ JablGenerator.prototype.askFor = function askFor() {
             name: 'angularIncludeModules',
             message: 'Please check AngularJS options',
             choices: function (answers) {
-                var appModuleName = answers.angularAppModuleName;
                 return [
                     {
                         name: 'Include the angular-resource module',
@@ -167,7 +245,14 @@ JablGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
+JablGenerator.prototype.createConfig = function app() {
 
+    console.log('\n\n' + '------------------------------------------------------------------');
+    console.log('Creating config.json...');
+    console.log('------------------------------------------------------------------' + '\n\n');
+
+    this.write('jabl.json', JSON.stringify(this.config));
+};
 
 JablGenerator.prototype.angular = function app() {
 

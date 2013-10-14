@@ -1,5 +1,19 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+    "name": "<%= _.slugify(config.appTitle.slugified) %>",
+    "version": "0.0.0",
+    "dependencies": {},
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-uglify": "~0.2.0",
+        "grunt-contrib-jshint": "~0.6.0",
+        "grunt-contrib-watch": "~0.4.0",
+        "grunt-karma": "~0.4.3",
+        "karma": "~0.9",
+        "karma-jasmine": "~0.0.3",
+        "karma-chrome-launcher": "~0.0.2"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    }
 }

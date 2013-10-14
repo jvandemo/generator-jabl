@@ -3,27 +3,52 @@ var util = require('util')
     , path = require('path')
     , yeoman = require('yeoman-generator')
     , fs = require('fs')
-    , art = require('../lib/art');
+    , art = require('../lib/art')
+    , async = require('async');
 
 var JablGenerator = module.exports = function JablGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function () {
-        this.installDependencies({ skipInstall: options['skip-install'] });
+
+        console.log('\n\n' + '------------------------------------------------------------------');
+        console.log('Installing dependencies...');
+        console.log('------------------------------------------------------------------' + '\n\n');
+
+        this.installDependencies({
+            skipInstall: options['skip-install'],
+            callback: function() {
+                // Emit a new event - dependencies installed
+                this.emit('dependenciesInstalled');
+            }.bind(this)
+        });
     });
 
-    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+    this.on('dependenciesInstalled', function () {
+
+        console.log('\n\n' + '------------------------------------------------------------------');
+        console.log('Running GruntJS for the first time...');
+        console.log('------------------------------------------------------------------' + '\n\n');
+
+        this.spawnCommand('grunt', ['build']).on('exit',
+            function() {
+                // Emit a new event - dependencies installed
+                this.emit('gruntFinished');
+            }.bind(this)
+        );
+    });
+
+    this.on('gruntFinished', function () {
+
+        console.log('\n\n' + '------------------------------------------------------------------');
+        console.log('THANK YOU');
+        console.log('------------------------------------------------------------------' + '\n\n');
+
+    });
+
 };
 
 util.inherits(JablGenerator, yeoman.generators.Base);
-
-JablGenerator.prototype.test = function test() {
-
-    return;
-    this.env.run('jabl:a:controller', { 'answers' : {
-        controllerName: "MyFirstCtrl"
-    }});
-};
 
 JablGenerator.prototype.showWelcome = function showWelcome() {
     console.log(art.welcome);
@@ -38,21 +63,6 @@ JablGenerator.prototype.showMenu = function showMenu() {
     if (this.generatorName !== 'jabl') return cb();
 
     if (! fs.existsSync('jabl.json')) return cb();
-
-    /*
-    if (this.options.force) return cb();
-
-    console.log('To re-run the JABL setup wizard: yo jabl --setup' + '\n');
-
-    console.log('JABL AngularJS subgenerators');
-    console.log('Usage: yo jabl:a:<command>' + '\n');
-
-    console.log('  ' + 'controller' + '\t' + 'Create controller');
-    console.log('  ' + 'directive' + '\t' + 'Create directive');
-    console.log('  ' + 'filter' + '\t\t' + 'Create filter');
-    console.log('  ' + 'service' + '\t\t' + 'Create service');
-
-    */
 
     var prompts = [
         {
@@ -245,7 +255,7 @@ JablGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-JablGenerator.prototype.createConfig = function app() {
+JablGenerator.prototype.createConfigFile = function createConfigFile() {
 
     console.log('\n\n' + '------------------------------------------------------------------');
     console.log('Creating config.json...');
@@ -254,7 +264,7 @@ JablGenerator.prototype.createConfig = function app() {
     this.write('jabl.json', JSON.stringify(this.config));
 };
 
-JablGenerator.prototype.angular = function app() {
+JablGenerator.prototype.createAngularFiles = function createAngularFiles() {
 
     if(! this.config.includeAngular) return;
 
@@ -291,7 +301,7 @@ JablGenerator.prototype.angular = function app() {
     return;
 };
 
-JablGenerator.prototype.bower = function projectfiles() {
+JablGenerator.prototype.createPackageJson = function createPackageJson() {
 
     console.log('\n\n' + '------------------------------------------------------------------');
     console.log('Generating package.json...');
@@ -300,7 +310,7 @@ JablGenerator.prototype.bower = function projectfiles() {
     this.copy('_package.json', 'package.json');
 };
 
-JablGenerator.prototype.package = function projectfiles() {
+JablGenerator.prototype.createBowerFiles = function createBowerFiles() {
 
     console.log('\n\n' + '------------------------------------------------------------------');
     console.log('Generating Bower configuration...');
@@ -310,12 +320,34 @@ JablGenerator.prototype.package = function projectfiles() {
     this.copy('bowerrc', '.bowerrc');
 };
 
-JablGenerator.prototype.git = function projectfiles() {
+JablGenerator.prototype.createGruntFiles = function createGruntFiles() {
+
+    console.log('\n\n' + '------------------------------------------------------------------');
+    console.log('Generating GruntJS configuration...');
+    console.log('------------------------------------------------------------------' + '\n\n');
+
+    this.template('Gruntfile.js', 'Gruntfile.js');
+};
+
+JablGenerator.prototype.createKarmaFiles = function createKarmaFiles() {
+
+    console.log('\n\n' + '------------------------------------------------------------------');
+    console.log('Generating Karma configuration...');
+    console.log('------------------------------------------------------------------' + '\n\n');
+
+    this.template('karma-unit.conf.js', 'karma-unit.conf.js');
+};
+
+JablGenerator.prototype.createEmptyJavascriptLibrary = function createEmptyJavascriptLibrary() {
+    this.write('public/js/' + this.config.appTitle.camelized + '.js', '');
+    this.write('public/js/' + this.config.appTitle.camelized + '.min.js', '');
+};
+
+JablGenerator.prototype.createGitFiles = function createGitFiles() {
     this.copy('gitignore', '.gitignore');
 };
 
-JablGenerator.prototype.other = function projectfiles() {
-    return;
+JablGenerator.prototype.createOtherFiles = function createOtherFiles() {
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
 };

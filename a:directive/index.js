@@ -5,13 +5,13 @@ var util = require('util')
     , art = require('../lib/art')
     , chalk = require('chalk');
 
-var AControllerGenerator = module.exports = function AControllerGenerator(args, options, config) {
+var ADirectiveGenerator = module.exports = function ADirectiveGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 };
 
-util.inherits(AControllerGenerator, yeoman.generators.Base);
+util.inherits(ADirectiveGenerator, yeoman.generators.Base);
 
-AControllerGenerator.prototype.readConfig = function showWelcome() {
+ADirectiveGenerator.prototype.readConfig = function showWelcome() {
     this.jablConfig = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'jabl.json')));
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
@@ -20,15 +20,15 @@ AControllerGenerator.prototype.readConfig = function showWelcome() {
     });
 };
 
-AControllerGenerator.prototype.showWelcome = function showWelcome() {
+ADirectiveGenerator.prototype.showWelcome = function showWelcome() {
     console.log(art.clear);
     console.log(art.welcome);
     console.log(art.title(this.pkg.version));
-    console.log(chalk.yellow('Create an AngularJS controller') + ' (Ctrl-C to quit)');
+    console.log(chalk.yellow('Create an AngularJS directive') + ' (Ctrl-C to quit)');
     console.log('\n');
 };
 
-AControllerGenerator.prototype.askFor = function askFor() {
+ADirectiveGenerator.prototype.askFor = function askFor() {
 
     // Build a config object
     var buildConfig = function(props){
@@ -37,29 +37,29 @@ AControllerGenerator.prototype.askFor = function askFor() {
 
         return {
 
-            // Originally a classified string like "MyController"
-            controllerName: {
+            // Originally a classified string like "MyDirective"
+            directiveName: {
 
                 // String originally entered by user
-                original: props.controllerName,
+                original: props.directiveName,
 
                 // Camelized e.g. MyApp
-                camelized: _.camelize(_.underscored(props.controllerName)),
+                camelized: _.camelize(_.underscored(props.directiveName)),
 
                 // Dasherized e.g. my-app
-                dasherized: _.dasherize(_.underscored(props.controllerName)),
+                dasherized: _.dasherize(_.underscored(props.directiveName)),
 
                 // Slugified (whitespace replaced by dashes) e.g. myapp
-                slugified: _.slugify(_.humanize(props.controllerName)),
+                slugified: _.slugify(_.humanize(props.directiveName)),
 
                 // Underscored e.g. my_app
-                underscored: _.underscored(props.controllerName),
+                underscored: _.underscored(props.directiveName),
 
                 // Classified e.g. MyCtrl
-                classified: _.classify(_.underscored(props.controllerName)),
+                classified: _.classify(_.underscored(props.directiveName)),
 
                 // Array of parts e.g. ['my', 'app']
-                parts: _.underscored(props.controllerName).split('_')
+                parts: _.underscored(props.directiveName).split('_')
             },
 
             directory: props.directory
@@ -76,9 +76,9 @@ AControllerGenerator.prototype.askFor = function askFor() {
 
     var prompts = [
         {
-            name: 'controllerName',
-            message: 'What\'s the name of the controller you wish to create?',
-            default: 'MyCtrl',
+            name: 'directiveName',
+            message: 'What\'s the name of the directive you wish to create?',
+            default: 'MyDirective',
             filter: function (name) {
                 var underscored = yeoman.generators.Base.prototype._.underscored(name);
                 return yeoman.generators.Base.prototype._.classify(underscored);
@@ -86,11 +86,11 @@ AControllerGenerator.prototype.askFor = function askFor() {
         },
         {
             name: 'directory',
-            message: 'In which directory would you like to create the controller?',
-            default: 'controllers',
+            message: 'In which directory would you like to create the directive?',
+            default: 'directives',
             validate: function (name) {
-                if (/^controllers.*/.test(name)) return true;
-                return 'The directory name must start with "controllers" e.g. "controllers/subdir"';
+                if (/^directives.*/.test(name)) return true;
+                return 'The directory name must start with "directives" e.g. "directives/subdir"';
             }
         }
     ];
@@ -103,12 +103,12 @@ AControllerGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-AControllerGenerator.prototype.createSrc = function writeFiles() {
+ADirectiveGenerator.prototype.createSrc = function writeFiles() {
     var dest = 'src/js/src/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
-    this.template('controller.js', dest  + '/' + this.config.controllerName.camelized + '.js');
+    this.template('directive.js', dest  + '/' + this.config.directiveName.camelized + '.js');
 };
 
-AControllerGenerator.prototype.createUnitTest = function writeFiles() {
+ADirectiveGenerator.prototype.createUnitTest = function writeFiles() {
     var dest = 'src/js/test/unit/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
-    this.template('controllerSpec.js', dest  + '/' + this.config.controllerName.camelized + 'Spec.js');
+    this.template('directiveSpec.js', dest  + '/' + this.config.directiveName.camelized + 'Spec.js');
 };

@@ -7,15 +7,17 @@ var util = require('util')
     , async = require('async')
     , chalk = require('chalk');
 
+var h1 = function(title){
+    console.log('\n\n' + '------------------------------------------------------------------');
+    console.log(chalk.yellow(title));
+    console.log('------------------------------------------------------------------' + '\n\n');
+}
+
 var JablGenerator = module.exports = function JablGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function () {
-
-        console.log('\n\n' + '------------------------------------------------------------------');
-        console.log('Installing dependencies...');
-        console.log('------------------------------------------------------------------' + '\n\n');
-
+        h1('Installing dependencies...');
         this.installDependencies({
             skipInstall: options['skip-install'],
             callback: function() {
@@ -26,11 +28,7 @@ var JablGenerator = module.exports = function JablGenerator(args, options, confi
     });
 
     this.on('dependenciesInstalled', function () {
-
-        console.log('\n\n' + '------------------------------------------------------------------');
-        console.log('Running GruntJS for the first time...');
-        console.log('------------------------------------------------------------------' + '\n\n');
-
+        h1('Running GruntJS for the first time...');
         this.spawnCommand('grunt', ['build']).on('exit',
             function() {
                 // Emit a new event - dependencies installed
@@ -40,19 +38,8 @@ var JablGenerator = module.exports = function JablGenerator(args, options, confi
     });
 
     this.on('gruntFinished', function () {
-
-        console.log('\n\n' + '------------------------------------------------------------------');
-        console.log('All done!');
-        console.log('------------------------------------------------------------------' + '\n');
-
-        console.log('Go ahead and run \'yo jabl\' to open the JABL menu');
-
-        /*
-        console.log('  1. To add new components: yo jabl');
-        console.log('  2. To build your JavaScript library: grunt build');
-        console.log('  3. To run unit tests: karma start karma-unit.conf.js');
-        */
-
+        h1('All done!');
+        console.log(art.help);
         console.log('\n\n');
     });
 
@@ -223,11 +210,7 @@ JablGenerator.prototype.askFor = function askFor() {
 };
 
 JablGenerator.prototype.createConfigFile = function createConfigFile() {
-
-    console.log('\n\n' + '------------------------------------------------------------------');
-    console.log('Creating config.json...');
-    console.log('------------------------------------------------------------------' + '\n\n');
-
+    h1('Creating config.json...');
     this.write('jabl.json', JSON.stringify(this.config));
 };
 
@@ -235,9 +218,7 @@ JablGenerator.prototype.createAngularFiles = function createAngularFiles() {
 
     if(! this.config.includeAngular) return;
 
-    console.log('\n\n' + '------------------------------------------------------------------');
-    console.log('Creating AngularJS directory structure...');
-    console.log('------------------------------------------------------------------' + '\n\n');
+    h1('Creating AngularJS directory structure...');
 
     this.mkdir('src');
     this.mkdir('src/js');
@@ -269,39 +250,23 @@ JablGenerator.prototype.createAngularFiles = function createAngularFiles() {
 };
 
 JablGenerator.prototype.createPackageJson = function createPackageJson() {
-
-    console.log('\n\n' + '------------------------------------------------------------------');
-    console.log('Generating package.json...');
-    console.log('------------------------------------------------------------------' + '\n\n');
-
+    h1('Generating package.json...');
     this.copy('_package.json', 'package.json');
 };
 
 JablGenerator.prototype.createBowerFiles = function createBowerFiles() {
-
-    console.log('\n\n' + '------------------------------------------------------------------');
-    console.log('Generating Bower configuration...');
-    console.log('------------------------------------------------------------------' + '\n\n');
-
+    h1('Generating Bower configuration...');
     this.copy('_bower.json', 'bower.json');
     this.copy('bowerrc', '.bowerrc');
 };
 
 JablGenerator.prototype.createGruntFiles = function createGruntFiles() {
-
-    console.log('\n\n' + '------------------------------------------------------------------');
-    console.log('Generating GruntJS configuration...');
-    console.log('------------------------------------------------------------------' + '\n\n');
-
+    h1('Generating GruntJS configuration...');
     this.template('Gruntfile.js', 'Gruntfile.js');
 };
 
 JablGenerator.prototype.createKarmaFiles = function createKarmaFiles() {
-
-    console.log('\n\n' + '------------------------------------------------------------------');
-    console.log('Generating Karma configuration...');
-    console.log('------------------------------------------------------------------' + '\n\n');
-
+    h1('Generating Karma configuration...');
     this.template('karma-unit.conf.js', 'karma-unit.conf.js');
 };
 

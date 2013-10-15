@@ -2,7 +2,8 @@
 var util = require('util')
     , path = require('path')
     , yeoman = require('yeoman-generator')
-    , art = require('../lib/art');
+    , art = require('../lib/art')
+    , chalk = require('chalk');
 
 var AControllerGenerator = module.exports = function AControllerGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -12,11 +13,19 @@ util.inherits(AControllerGenerator, yeoman.generators.Base);
 
 AControllerGenerator.prototype.readConfig = function showWelcome() {
     this.jablConfig = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'jabl.json')));
-    console.log(this.jablConfig);
+    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+
+    this.on('end', function(){
+        console.log('\n' + chalk.yellow('Done!') + '\n');
+    });
 };
 
 AControllerGenerator.prototype.showWelcome = function showWelcome() {
+    console.log(art.clear);
     console.log(art.welcome);
+    console.log(art.title(this.pkg.version));
+    console.log(chalk.yellow('Create an AngularJS controller') + ' (Ctrl-C to quit)');
+    console.log('\n');
 };
 
 AControllerGenerator.prototype.askFor = function askFor() {

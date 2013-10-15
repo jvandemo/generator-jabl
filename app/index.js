@@ -4,7 +4,8 @@ var util = require('util')
     , yeoman = require('yeoman-generator')
     , fs = require('fs')
     , art = require('../lib/art')
-    , async = require('async');
+    , async = require('async')
+    , chalk = require('chalk');
 
 var JablGenerator = module.exports = function JablGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
@@ -41,81 +42,47 @@ var JablGenerator = module.exports = function JablGenerator(args, options, confi
     this.on('gruntFinished', function () {
 
         console.log('\n\n' + '------------------------------------------------------------------');
-        console.log('THANK YOU');
-        console.log('------------------------------------------------------------------' + '\n\n');
+        console.log('All done!');
+        console.log('------------------------------------------------------------------' + '\n');
 
+        console.log('Go ahead and run \'yo jabl\' to open the JABL menu');
+
+        /*
+        console.log('  1. To add new components: yo jabl');
+        console.log('  2. To build your JavaScript library: grunt build');
+        console.log('  3. To run unit tests: karma start karma-unit.conf.js');
+        */
+
+        console.log('\n\n');
     });
 
+    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
 util.inherits(JablGenerator, yeoman.generators.Base);
 
 JablGenerator.prototype.showWelcome = function showWelcome() {
+    console.log(art.clear);
     console.log(art.welcome);
 };
 
-JablGenerator.prototype.showMenu = function showMenu() {
+JablGenerator.prototype.showHelp = function showHelp() {
 
     var cb = this.async();
 
-    // Show help if config already exists
+    // if (this.generatorName !== 'jabl') return cb();
 
-    if (this.generatorName !== 'jabl') return cb();
-
+    // Run setup wizard if no config exists
     if (! fs.existsSync('jabl.json')) return cb();
 
-    var prompts = [
-        {
-            type: 'list',
-            name: 'action',
-            message: 'What would you like to do? (Ctrl-C to quit)',
-            choices: function (answers) {
-                return [
-                    new yeoman.inquirer.Separator('\n' + '---- AngularJS ----'),
-                    {
-                        name: 'Create AngularJS controller',
-                        value: 'a:controller'
-                    },
-                    {
-                        name: 'Create AngularJS directive',
-                        value: 'a:directive'
-                    },
-                    {
-                        name: 'Create AngularJS service',
-                        value: 'a:service'
-                    },
-                    {
-                        name: 'Create AngularJS filter',
-                        value: 'a:filter'
-                    },
-                    new yeoman.inquirer.Separator('\n' + '---- JABL ----'),
-                    {
-                        name: 'Re-run JABL setup wizard',
-                        value: 'setup'
-                    },
-                    {
-                        name: 'Exit',
-                        value: 'exit'
-                    }
-                ];
-            }
-        }
-    ];
+    // jabl --setup should trigger setup again
+    if (this.options.setup) return cb();
 
-    this.prompt(prompts, function (props) {
+    if(this.options.karma) return this.spawnCommand('karma', ['start', 'karma-unit.conf.js']);
 
-        var action = props.action;
-
-        if (action === 'setup') return cb();
-
-        if (action === 'exit') return console.log('Have a great day!');
-
-        if (action === 'a:controller') return this.env.run('jabl:a:controller');
-
-    }.bind(this));
-
-
-
+    // Display help
+    console.log(art.title(this.pkg.version));
+    console.log(art.help);
 };
 
 JablGenerator.prototype.askFor = function askFor() {

@@ -67,6 +67,8 @@ JablGenerator.prototype.showHelp = function showHelp() {
 
     if(this.options.karma) return this.spawnCommand('karma', ['start', 'karma-unit.conf.js']);
 
+    if(this.options.build) return this.spawnCommand('grunt', ['build']);
+
     // Display help
     console.log(art.title(this.pkg.version));
     console.log(art.help);

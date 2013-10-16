@@ -99,7 +99,6 @@ AServiceGenerator.prototype.askFor = function askFor() {
     this.prompt(prompts, function (props) {
 
         this.config = buildConfig(props);
-        console.log(this.config);
         cb();
     }.bind(this));
 };

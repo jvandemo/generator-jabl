@@ -1,8 +1,12 @@
 # JABL
 
-JABL is a generator for [Yeoman](http://yeoman.io) to build a static website with Jade, AngularJS, Bootstrap and LESS.
+JABL is a generator for [Yeoman](http://yeoman.io).
 
-This is convenient if you love Node.js and Express, but don't have access to Node.js hosting.
+If you love working with [Jade](http://jade-lang.com), [AngularJS](http://www.angularjs.org), [Bootstrap](http://getbootstrap.com) and [LESS](http://lesscss.org), then JABL might just be something for you!
+
+It allows you to quickly build a static website that can easily be hosted on any kind of webserver (no Node.js, PHP, etc required).
+
+Learn how to get your website up and running in just seconds...
 
 ## Getting Started
 
@@ -17,12 +21,10 @@ Then install generator-jabl:
 Finally, initiate the setup wizard:
 
     $ yo jabl
-    
-Answer the questions:
 
 ![Welcome](http://jvandemo.github.io/generator-jabl/images/screenshots/setup.png)
 
-And JABL will automatically generate a complete website for you.
+JABL will automatically generate a complete website for you.
     
 ## Getting help
 

@@ -24,33 +24,31 @@ Answer the questions:
 
 And JABL will automatically generate a complete website for you.
     
-## Creating subcomponents
+## Getting help
 
-After running the setup wizard, you can use JABL to add subcomponents to your website:
+After running the setup wizard, you can display a help screen with the available options:
 
     $ yo jabl
-    
-This will display a help screen with the available options:
 
 ![Welcome](http://jvandemo.github.io/generator-jabl/images/screenshots/help.png)
 
 ## Creating AngularJS subcomponents
 
-All [AngularJS](http://www.angularjs.org) commands look like `jabl:a:<command>`.
+All commands to generate [AngularJS](http://www.angularjs.org) subcomponents look like `jabl:a:<command>`.
 
-To create an [AngularJS](http://www.angularjs.org) controller:
+### Create an AngularJS controller
 
     $ yo jabl:a:controller
     
 ![AngularJS controller](http://jvandemo.github.io/generator-jabl/images/screenshots/a-controller.png)
 
-To create an [AngularJS](http://www.angularjs.org) directive:
+### Create an AngularJS directive
 
     $ yo jabl:a:directive
     
 ![AngularJS directive](http://jvandemo.github.io/generator-jabl/images/screenshots/a-directive.png)
 
-To create an [AngularJS](http://www.angularjs.org) service:
+### Create an AngularJS service
 
     $ yo jabl:a:service
     

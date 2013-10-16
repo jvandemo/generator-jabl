@@ -32,7 +32,7 @@ After running the setup wizard, you can use JABL to add subcomponents to your we
     
 This will display a help screen with the available options:
 
-![Welcome](http://jvandemo.github.io/generator-jabl/images/screenshots/welcome.png)
+![Welcome](http://jvandemo.github.io/generator-jabl/images/screenshots/help.png)
 
 ## Creating AngularJS subcomponents
 
@@ -48,7 +48,13 @@ To create an [AngularJS](http://www.angularjs.org) directive:
 
     $ yo jabl:a:directive
     
-![AngularJS directive](http://jvandemo.github.io/generator-jabl/images/screenshots/directive.png)
+![AngularJS directive](http://jvandemo.github.io/generator-jabl/images/screenshots/a-directive.png)
+
+To create an [AngularJS](http://www.angularjs.org) service:
+
+    $ yo jabl:a:service
+    
+![AngularJS service](http://jvandemo.github.io/generator-jabl/images/screenshots/a-service.png)
 
 ## Building the JavaScript library
 

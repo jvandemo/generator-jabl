@@ -1,5 +1,5 @@
 angular.module('<%= jablConfig.angular.appModuleName.camelized %>.directives')
-    .directive('<%= config.directiveName.classified %>', ['$scope', function($scope){
+    .directive('<%= config.directiveName.camelized %>', ['$scope', function($scope){
 
         return {
             restrict: 'AE',

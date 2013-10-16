@@ -37,29 +37,29 @@ ADirectiveGenerator.prototype.askFor = function askFor() {
 
         return {
 
-            // Originally a classified string like "MyDirective"
+            // Originally a camelized string like "myDirective"
             directiveName: {
 
                 // String originally entered by user
                 original: props.directiveName,
 
-                // Camelized e.g. MyApp
-                camelized: _.camelize(_.underscored(props.directiveName)),
+                // Camelized e.g. myService
+                camelized: _.camelize(props.directiveName),
 
-                // Dasherized e.g. my-app
-                dasherized: _.dasherize(_.underscored(props.directiveName)),
+                // Dasherized e.g. my-directive
+                dasherized: _.dasherize(props.directiveName),
 
-                // Slugified (whitespace replaced by dashes) e.g. myapp
+                // Slugified (whitespace replaced by dashes) e.g. mydirective
                 slugified: _.slugify(_.humanize(props.directiveName)),
 
-                // Underscored e.g. my_app
+                // Array of parts e.g. ['my', 'directive']
+                parts: _.dasherize(props.directiveName).split('-'),
+
+                // Underscored e.g. my_directive
                 underscored: _.underscored(props.directiveName),
 
-                // Classified e.g. MyCtrl
-                classified: _.classify(_.underscored(props.directiveName)),
-
-                // Array of parts e.g. ['my', 'app']
-                parts: _.underscored(props.directiveName).split('_')
+                // Classified e.g. MyService
+                classified: _.classify(_.underscored(props.directiveName))
             },
 
             directory: props.directory
@@ -78,10 +78,10 @@ ADirectiveGenerator.prototype.askFor = function askFor() {
         {
             name: 'directiveName',
             message: 'What\'s the name of the directive you wish to create?',
-            default: 'MyDirective',
+            default: 'myDirective',
             filter: function (name) {
                 var underscored = yeoman.generators.Base.prototype._.underscored(name);
-                return yeoman.generators.Base.prototype._.classify(underscored);
+                return yeoman.generators.Base.prototype._.camelize(underscored);
             }
         },
         {

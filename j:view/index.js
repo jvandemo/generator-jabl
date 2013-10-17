@@ -154,5 +154,5 @@ JViewGenerator.prototype.createFiles = function createFiles() {
 
     this.config.layoutPath = layoutPath;
 
-    this.template('view.jade', 'src/jade/public/' + this.config.directory + '/' + this.config.viewName.camelized + '.jade');
+    this.template('view.jade', 'src/jade/' + this.config.directory + '/' + this.config.viewName.camelized + '.jade');
 };

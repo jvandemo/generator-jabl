@@ -11,7 +11,7 @@ var AControllerGenerator = module.exports = function AControllerGenerator(args, 
 
 util.inherits(AControllerGenerator, yeoman.generators.Base);
 
-AControllerGenerator.prototype.readConfig = function showWelcome() {
+AControllerGenerator.prototype.readConfig = function readConfig() {
     this.jablConfig = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'jabl.json')));
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
@@ -103,12 +103,12 @@ AControllerGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-AControllerGenerator.prototype.createSrc = function writeFiles() {
+AControllerGenerator.prototype.createSrc = function createSrc() {
     var dest = 'src/js/src/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('controller.js', dest  + '/' + this.config.controllerName.camelized + '.js');
 };
 
-AControllerGenerator.prototype.createUnitTest = function writeFiles() {
+AControllerGenerator.prototype.createUnitTest = function createUnitTest() {
     var dest = 'src/js/test/unit/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('controllerSpec.js', dest  + '/' + this.config.controllerName.camelized + 'Spec.js');
 };

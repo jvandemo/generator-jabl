@@ -247,8 +247,34 @@ JablGenerator.prototype.createAngularFiles = function createAngularFiles() {
     this.template('src/angular/library/library.suffix', 'src/js/src/' + camelized + '/' + camelized + '.suffix');
 
     this.template('src/angular/test/unit/library/library.js', 'src/js/test/unit/' + camelized + '/' + camelized + '.js');
+};
 
-    return;
+JablGenerator.prototype.createJadeFiles = function createJadeFiles() {
+
+    h1('Creating Jade directory structure...');
+
+    this.mkdir('src');
+    this.mkdir('src/jade');
+    this.mkdir('src/jade/layouts');
+    this.mkdir('src/jade/includes');
+    this.mkdir('src/jade/public');
+
+    this.template('src/jade/includes/header.jade', 'src/jade/includes/header.jade', {jablConfig: this.config});
+    this.template('src/jade/includes/footer.jade', 'src/jade/includes/footer.jade', {jablConfig: this.config});
+    this.template('src/jade/public/index.jade', 'src/jade/public/index.jade', {jablConfig: this.config});
+
+    var cb = this.async();
+
+    // Call jade layout subgenerator and pass in answers to generate default layout
+    this.env.run(
+        'jabl:j:layout',
+        {
+            'answers': {
+                layoutName: 'default'
+            }
+        },
+        cb
+    )
 };
 
 JablGenerator.prototype.createPackageJson = function createPackageJson() {

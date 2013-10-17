@@ -11,7 +11,7 @@ var ADirectiveGenerator = module.exports = function ADirectiveGenerator(args, op
 
 util.inherits(ADirectiveGenerator, yeoman.generators.Base);
 
-ADirectiveGenerator.prototype.readConfig = function showWelcome() {
+ADirectiveGenerator.prototype.readConfig = function readConfig() {
     this.jablConfig = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'jabl.json')));
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
@@ -103,12 +103,12 @@ ADirectiveGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-ADirectiveGenerator.prototype.createSrc = function writeFiles() {
+ADirectiveGenerator.prototype.createSrc = function createSrc() {
     var dest = 'src/js/src/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('directive.js', dest  + '/' + this.config.directiveName.camelized + '.js');
 };
 
-ADirectiveGenerator.prototype.createUnitTest = function writeFiles() {
+ADirectiveGenerator.prototype.createUnitTest = function createUnitTest() {
     var dest = 'src/js/test/unit/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('directiveSpec.js', dest  + '/' + this.config.directiveName.camelized + 'Spec.js');
 };

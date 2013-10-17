@@ -2,6 +2,24 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         jablConfig: grunt.file.readJSON('jabl.json'),
+        jade: {
+            compile: {
+                options: {
+                    data: {
+                        debug: false
+                    }
+                },
+                files: [
+                    {
+                        expand: true,     // Enable dynamic expansion.
+                        cwd: 'src/jade/public',      // Src matches are relative to this path.
+                        src: ['**/*.jade'], // Actual pattern(s) to match.
+                        dest: 'public/',   // Destination path prefix.
+                        ext: '.html'    // Dest filepaths will have this extension.
+                    }
+                ]
+            }
+        },
         concat: {
             options: {
                 separator: ''
@@ -66,8 +84,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jade');
 
-    grunt.registerTask('default', ['jshint:beforeConcat', 'concat', 'jshint:afterConcat', 'uglify']);
+    grunt.registerTask('default', ['jade', 'jshint:beforeConcat', 'concat', 'jshint:afterConcat', 'uglify']);
     grunt.registerTask('build', ['default']);
     grunt.registerTask('livereload', ['default', 'watch']);
 

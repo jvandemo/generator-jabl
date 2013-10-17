@@ -1,0 +1,32 @@
+!!!
+
+<% if(jablConfig.includeAngular) { %>html(ng-app="<%= jablConfig.angular.appModuleName.camelized %>")<% }else{ %>html<% } %>
+    head
+        block head
+
+            meta(charset='utf8')
+
+            title <%= jablConfig.appTitle.original %>
+
+            link(rel='stylesheet', href='css/style.css')
+
+            <% if(jablConfig.includeAngular) { %>script(src='js/bower/angular/angular.js')<% if(jablConfig.angular.includeModules.resource) { %>
+            script(src='js/bower/angular-resource/angular-resource.js')<% } %><% if(jablConfig.angular.includeModules.cookies) { %>
+            script(src='js/bower/angular-cookies/angular-cookies.js')<% } %><% if(jablConfig.angular.includeModules.sanitize) { %>
+            script(src='js/bower/angular-sanitize/angular-sanitize.js')<% } %><% } %>
+            script(src='js/<%= jablConfig.appTitle.camelized %>.js')
+
+
+        block body
+
+            <% if(jablConfig.includeAngular) { %>body(ng-controller="AppCtrl")<% }else{ %>body<% } %>
+
+                block header
+
+                    include ../includes/header
+
+                block content
+
+                block footer
+
+                    include ../includes/footer

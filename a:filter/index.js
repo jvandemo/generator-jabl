@@ -11,7 +11,7 @@ var AFilterGenerator = module.exports = function AFilterGenerator(args, options,
 
 util.inherits(AFilterGenerator, yeoman.generators.Base);
 
-AFilterGenerator.prototype.readConfig = function showWelcome() {
+AFilterGenerator.prototype.readConfig = function readConfig() {
     this.jablConfig = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'jabl.json')));
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
@@ -103,12 +103,12 @@ AFilterGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-AFilterGenerator.prototype.createSrc = function writeFiles() {
+AFilterGenerator.prototype.createSrc = function createSrc() {
     var dest = 'src/js/src/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('filter.js', dest  + '/' + this.config.filterName.camelized + '.js');
 };
 
-AFilterGenerator.prototype.createUnitTest = function writeFiles() {
+AFilterGenerator.prototype.createUnitTest = function createUnitTest() {
     var dest = 'src/js/test/unit/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('filterSpec.js', dest  + '/' + this.config.filterName.camelized + 'Spec.js');
 };

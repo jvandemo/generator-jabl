@@ -11,7 +11,7 @@ var AServiceGenerator = module.exports = function AServiceGenerator(args, option
 
 util.inherits(AServiceGenerator, yeoman.generators.Base);
 
-AServiceGenerator.prototype.readConfig = function showWelcome() {
+AServiceGenerator.prototype.readConfig = function readConfig() {
     this.jablConfig = JSON.parse(this.readFileAsString(path.join(this.destinationRoot(), 'jabl.json')));
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
@@ -103,12 +103,12 @@ AServiceGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-AServiceGenerator.prototype.createSrc = function writeFiles() {
+AServiceGenerator.prototype.createSrc = function createSrc() {
     var dest = 'src/js/src/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('service.js', dest  + '/' + this.config.serviceName.camelized + '.js');
 };
 
-AServiceGenerator.prototype.createUnitTest = function writeFiles() {
+AServiceGenerator.prototype.createUnitTest = function createUnitTest() {
     var dest = 'src/js/test/unit/' + this.jablConfig.angular.appModuleName.camelized + '/' + this.config.directory;
     this.template('serviceSpec.js', dest  + '/' + this.config.serviceName.camelized + 'Spec.js');
 };

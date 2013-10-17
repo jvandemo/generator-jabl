@@ -1,6 +1,6 @@
 {
   "name": "generator-jabl",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "A generator for Yeoman to build a website with Jade, AngularJS, Bootstrap and LESS",
   "keywords": [
     "yeoman-generator"

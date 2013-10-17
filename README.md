@@ -56,7 +56,7 @@ All commands to generate [AngularJS](http://www.angularjs.org) subcomponents loo
 
 ![AngularJS service](http://jvandemo.github.io/generator-jabl/images/screenshots/a-service.png)
 
-## Building the JavaScript library
+### Building the JavaScript library
 
 For unit testing purposes, JABL automatically generates components and their unit tests in the `src` directory.
 
@@ -68,7 +68,7 @@ To build the Javascript library in the `public/js` directory for use in the webs
 
 JABL will automatically check your code and build a library in the `public/js' directory.
 
-## Testing the JavaScript code
+### Testing the JavaScript code
 
 JABL is designed to work with [Karma](http://karma-runner.github.io/) and the setup wizard will automatically configure Karma for you.
 
@@ -81,6 +81,44 @@ To run all unit test:
     $ yo jabl --karma
 
 ![Karma](http://jvandemo.github.io/generator-jabl/images/screenshots/karma.png)
+
+## Creating Jade subcomponents
+
+All commands to generate [AngularJS](http://www.angularjs.org) subcomponents look like `jabl:j:<command>`.
+
+### Create a Jade layout
+
+    $ yo jabl:j:layout
+
+![Jade layout](http://jvandemo.github.io/generator-jabl/images/screenshots/j-layout.png)
+
+### Create a Jade view
+
+    $ yo jabl:j:view
+
+![Jade view](http://jvandemo.github.io/generator-jabl/images/screenshots/j-view.png)
+
+### Building the HTML
+
+JABL automatically generates Jade components in the `src/jade` directory.
+
+To build the resulting HTML in the `public` directory, just run:
+
+    $ yo jabl --build
+
+![Build](http://jvandemo.github.io/generator-jabl/images/screenshots/build.png)
+
+JABL will automatically generate all HTML files and put them in the `public' directory.
+
+The hierarchy of your Jade views will be respected, so:
+
+    src/jade/public/index.jade
+    src/jade/public/products/index.jade
+    
+will be compiled to
+
+    public/index.html
+    public/products/index.html
 
 ## Change log
 

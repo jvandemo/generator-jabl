@@ -103,8 +103,8 @@
 
 <p><img src="http://jvandemo.github.io/generator-jabl/images/screenshots/a-service.png" alt="AngularJS service"></p>
 
-<h2>
-<a name="building-the-javascript-library" class="anchor" href="#building-the-javascript-library"><span class="octicon octicon-link"></span></a>Building the JavaScript library</h2>
+<h3>
+<a name="building-the-javascript-library" class="anchor" href="#building-the-javascript-library"><span class="octicon octicon-link"></span></a>Building the JavaScript library</h3>
 
 <p>For unit testing purposes, JABL automatically generates components and their unit tests in the <code>src</code> directory.</p>
 
@@ -117,8 +117,8 @@
 
 <p>JABL will automatically check your code and build a library in the `public/js' directory.</p>
 
-<h2>
-<a name="testing-the-javascript-code" class="anchor" href="#testing-the-javascript-code"><span class="octicon octicon-link"></span></a>Testing the JavaScript code</h2>
+<h3>
+<a name="testing-the-javascript-code" class="anchor" href="#testing-the-javascript-code"><span class="octicon octicon-link"></span></a>Testing the JavaScript code</h3>
 
 <p>JABL is designed to work with <a href="http://karma-runner.github.io/">Karma</a> and the setup wizard will automatically configure Karma for you.</p>
 
@@ -134,6 +134,99 @@
 <p><img src="http://jvandemo.github.io/generator-jabl/images/screenshots/karma.png" alt="Karma"></p>
 
 <h2>
+<a name="creating-jade-subcomponents" class="anchor" href="#creating-jade-subcomponents"><span class="octicon octicon-link"></span></a>Creating Jade subcomponents</h2>
+
+<p>All commands to generate <a href="http://www.angularjs.org">AngularJS</a> subcomponents look like <code>jabl:j:&lt;command&gt;</code>.</p>
+
+<h3>
+<a name="create-a-jade-layout" class="anchor" href="#create-a-jade-layout"><span class="octicon octicon-link"></span></a>Create a Jade layout</h3>
+
+<pre><code>$ yo jabl:j:layout
+</code></pre>
+
+<p><img src="http://jvandemo.github.io/generator-jabl/images/screenshots/j-layout.png" alt="Jade layout"></p>
+
+<h3>
+<a name="create-a-jade-view" class="anchor" href="#create-a-jade-view"><span class="octicon octicon-link"></span></a>Create a Jade view</h3>
+
+<pre><code>$ yo jabl:j:view
+</code></pre>
+
+<p><img src="http://jvandemo.github.io/generator-jabl/images/screenshots/j-view.png" alt="Jade view"></p>
+
+<h3>
+<a name="building-the-html" class="anchor" href="#building-the-html"><span class="octicon octicon-link"></span></a>Building the HTML</h3>
+
+<p>JABL automatically generates Jade components in the <code>src/jade</code> directory.</p>
+
+<p>To build the resulting HTML in the <code>public</code> directory, just run:</p>
+
+<pre><code>$ yo jabl --build
+</code></pre>
+
+<p><img src="http://jvandemo.github.io/generator-jabl/images/screenshots/build.png" alt="Build"></p>
+
+<p>JABL will automatically generate all HTML files and put them in the `public' directory.</p>
+
+<p>The hierarchy of your Jade views will be respected, so:</p>
+
+<pre><code>src/jade/public/index.jade
+src/jade/public/products/index.jade
+</code></pre>
+
+<p>will be compiled to</p>
+
+<pre><code>public/index.html
+public/products/index.html
+</code></pre>
+
+<h2>
+<a name="change-log" class="anchor" href="#change-log"><span class="octicon octicon-link"></span></a>Change log</h2>
+
+<h3>
+<a name="070" class="anchor" href="#070"><span class="octicon octicon-link"></span></a>0.7.0</h3>
+
+<ul>
+<li>Added Jade view scaffolding</li>
+<li>Updated readme</li>
+</ul><h3>
+<a name="060" class="anchor" href="#060"><span class="octicon octicon-link"></span></a>0.6.0</h3>
+
+<ul>
+<li>Added Jade layout scaffolding</li>
+<li>Refactored some method names</li>
+</ul><h3>
+<a name="050" class="anchor" href="#050"><span class="octicon octicon-link"></span></a>0.5.0</h3>
+
+<ul>
+<li>Added AngularJS filter scaffolding</li>
+<li>Updated readme</li>
+</ul><h3>
+<a name="040" class="anchor" href="#040"><span class="octicon octicon-link"></span></a>0.4.0</h3>
+
+<ul>
+<li>Added AngularJS service scaffolding</li>
+<li>Updated readme</li>
+</ul><h3>
+<a name="030" class="anchor" href="#030"><span class="octicon octicon-link"></span></a>0.3.0</h3>
+
+<ul>
+<li>Added AngularJS directive scaffolding</li>
+<li>Added automatic Gruntfile.js generation</li>
+<li>Added yo:jabl --build options</li>
+<li>Fixed some bugs</li>
+<li>Updated readme</li>
+</ul><h3>
+<a name="020" class="anchor" href="#020"><span class="octicon octicon-link"></span></a>0.2.0</h3>
+
+<ul>
+<li>Added AngularJS controller scaffolding</li>
+</ul><h3>
+<a name="010" class="anchor" href="#010"><span class="octicon octicon-link"></span></a>0.1.0</h3>
+
+<ul>
+<li>Initial tryout release</li>
+</ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p><a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a></p>

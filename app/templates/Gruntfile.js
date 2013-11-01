@@ -68,6 +68,13 @@ module.exports = function (grunt) {
                 globalstrict: false
             }
         },
+        less: {
+            jid: {
+                files: {
+                    "public/css/<%%= jablConfig.appTitle.camelized %>.css": "src/less/<%%= jablConfig.appTitle.camelized %>.less"
+                }
+            }
+        },
         watch: {
             options: {
                 livereload: true
@@ -85,8 +92,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
-    grunt.registerTask('default', ['jade', 'jshint:beforeConcat', 'concat', 'jshint:afterConcat', 'uglify']);
+    grunt.registerTask('default', ['jade', 'less', 'jshint:beforeConcat', 'concat', 'jshint:afterConcat', 'uglify']);
     grunt.registerTask('build', ['default']);
     grunt.registerTask('livereload', ['default', 'watch']);
 

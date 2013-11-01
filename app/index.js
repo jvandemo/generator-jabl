@@ -290,6 +290,12 @@ JablGenerator.prototype.createJadeFiles = function createJadeFiles() {
     )
 };
 
+JablGenerator.prototype.createBootstrapFiles = function createBootstrapFiles() {
+    if(! this.config.includeBootstrap) return;
+    h1('Generating Bootstrap configuration...');
+    this.template('src/less/main.less', 'src/less/' + this.config.appTitle.camelized + '.less', {jablConfig: this.config});
+};
+
 JablGenerator.prototype.createPackageJson = function createPackageJson() {
     h1('Generating package.json...');
     this.copy('_package.json', 'package.json');

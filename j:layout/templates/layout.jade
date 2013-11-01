@@ -8,8 +8,7 @@
 
             title <%= jablConfig.appTitle.original %>
 
-            <% if(jablConfig.includeBootstrap) { %>link(rel='stylesheet', href='bower/bootstrap/dist/css/bootstrap.css')<% } %>
-            link(rel='stylesheet', href='css/style.css')
+            link(rel='stylesheet', href='css/<%= jablConfig.appTitle.camelized %>.css')
 
             <% if(jablConfig.includeAngular) { %>script(src='bower/angular/angular.js')<% if(jablConfig.angular.includeModules.resource) { %>
             script(src='bower/angular-resource/angular-resource.js')<% } %><% if(jablConfig.angular.includeModules.cookies) { %>

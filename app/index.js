@@ -247,6 +247,19 @@ JablGenerator.prototype.createAngularFiles = function createAngularFiles() {
     this.template('src/angular/library/library.suffix', 'src/js/src/' + camelized + '/' + camelized + '.suffix');
 
     this.template('src/angular/test/unit/library/library.js', 'src/js/test/unit/' + camelized + '/' + camelized + '.js');
+
+    // Call angular controller subgenerator to generate default AppCtrl
+    var cb = this.async();
+    this.env.run(
+        'jabl:a:controller',
+        {
+            'answers': {
+                controllerName: 'AppCtrl',
+                directory: 'controllers'
+            }
+        },
+        cb
+    )
 };
 
 JablGenerator.prototype.createJadeFiles = function createJadeFiles() {

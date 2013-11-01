@@ -8,12 +8,13 @@
 
             title <%= jablConfig.appTitle.original %>
 
+            <% if(jablConfig.includeBootstrap) { %>link(rel='stylesheet', href='bower/bootstrap/dist/css/bootstrap.css')<% } %>
             link(rel='stylesheet', href='css/style.css')
 
-            <% if(jablConfig.includeAngular) { %>script(src='js/bower/angular/angular.js')<% if(jablConfig.angular.includeModules.resource) { %>
-            script(src='js/bower/angular-resource/angular-resource.js')<% } %><% if(jablConfig.angular.includeModules.cookies) { %>
-            script(src='js/bower/angular-cookies/angular-cookies.js')<% } %><% if(jablConfig.angular.includeModules.sanitize) { %>
-            script(src='js/bower/angular-sanitize/angular-sanitize.js')<% } %><% } %>
+            <% if(jablConfig.includeAngular) { %>script(src='bower/angular/angular.js')<% if(jablConfig.angular.includeModules.resource) { %>
+            script(src='bower/angular-resource/angular-resource.js')<% } %><% if(jablConfig.angular.includeModules.cookies) { %>
+            script(src='bower/angular-cookies/angular-cookies.js')<% } %><% if(jablConfig.angular.includeModules.sanitize) { %>
+            script(src='bower/angular-sanitize/angular-sanitize.js')<% } %><% } %>
             script(src='js/<%= jablConfig.appTitle.camelized %>.js')
 
 

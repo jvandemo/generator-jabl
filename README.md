@@ -114,13 +114,18 @@ The hierarchy of your Jade views will be respected, so:
 
     src/jade/public/index.jade
     src/jade/public/products/index.jade
-    
+
 will be compiled to
 
     public/index.html
     public/products/index.html
 
 ## Change log
+
+### 0.8.0
+
+- Added default AppCtrl when AngularJS is added
+- Added Bootstrap support
 
 ### 0.7.0
 

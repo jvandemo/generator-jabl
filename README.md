@@ -122,6 +122,10 @@ will be compiled to
 
 ## Change log
 
+### 0.9.0
+
+- Added the ability to customize Bootstrap with LESS
+
 ### 0.8.0
 
 - Added default AppCtrl when AngularJS is added

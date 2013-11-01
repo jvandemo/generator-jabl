@@ -122,6 +122,10 @@ will be compiled to
 
 ## Change log
 
+### 0.9.1
+
+- Fixed bug in bower.json generation
+
 ### 0.9.0
 
 - Added the ability to customize Bootstrap with LESS

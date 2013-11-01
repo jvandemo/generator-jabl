@@ -6,7 +6,7 @@
         "angular-resource": "~1.0.7"<% } %><% if (config.angular.includeModules.cookies) { %>,
         "angular-cookies": "~1.0.7"<% } %><% if (config.angular.includeModules.sanitize) { %>,
         "angular-sanitize": "~1.0.7"<% } %><% if (config.includeBootstrap) { %>,
-        "bootstrap": "~3.0.1"<% } %><
+        "bootstrap": "~3.0.1"<% } %>
     },
     "devDependencies": {
         "angular-mocks": "~1.0.7",

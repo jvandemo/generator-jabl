@@ -120,7 +120,21 @@ will be compiled to
     public/index.html
     public/products/index.html
 
+### Start local server
+
+JABL includes a server to view your website locally. To start the server:
+
+    grunt serve
+
+Then open your browser to view your website:
+
+    http://localhost:9000
+
 ## Change log
+
+### 0.10.0
+
+- Added support for local development with the grunt serve task
 
 ### 0.9.1
 

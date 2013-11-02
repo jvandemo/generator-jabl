@@ -75,6 +75,17 @@ module.exports = function (grunt) {
                 }
             }
         },
+        connect: {
+            server:{
+                options: {
+                    port: 9000,
+                    base: 'public',
+                    hostname: 'localhost',
+                    keepalive: true,
+                    livereload: true
+                }
+            }
+        },
         watch: {
             options: {
                 livereload: true
@@ -93,9 +104,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.registerTask('default', ['jade', 'less', 'jshint:beforeConcat', 'concat', 'jshint:afterConcat', 'uglify']);
     grunt.registerTask('build', ['default']);
+    grunt.registerTask('serve', ['connect']);
     grunt.registerTask('livereload', ['default', 'watch']);
 
 };
